@@ -7,7 +7,6 @@ from sklearn.model_selection import train_test_split
 from matplotlib import pyplot
 from sklearn.metrics import f1_score, precision_score, recall_score
 
-model = xgboost.XGBClassifier()import os
 import pandas as pd
 import csv
 import numpy as np
