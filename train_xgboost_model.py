@@ -61,7 +61,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=42, test_
 
 
 model.fit(X_train,y_train)
-model.load_model("model.json")
 
 y_pred = model.predict(X_test)
 
