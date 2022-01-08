@@ -78,9 +78,11 @@ def prepare_file(path):
 
 def predict(model, path,name):
     get_csv_from_docker(path,name)
-    print(name + ".csv")
+    #print(args["name"] == "trial_lie_011")
     data = prepare_file(str(name) + ".csv")
     pred = model.predict(np.array([data]))
-    print(pred)
+    return pred
 
-predict(model,args["path"],"trial_lie_011")
+pred = predict(model,args["path"],args["name"])
+
+print("lie" if pred == 0 else "truth")
