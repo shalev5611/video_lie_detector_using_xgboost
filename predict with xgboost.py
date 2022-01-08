@@ -4,6 +4,17 @@ import pandas as pd
 import numpy as np
 import subprocess
 import docker
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-p", "--path", required=True,
+	help="file path")
+ap.add_argument("-n", "--name", required=True,
+	help="file name")
+
+args = vars(ap.parse_args())
+print(args)
+
 
 model = xgboost.XGBClassifier()
 model.load_model("lies.json")
@@ -15,6 +26,8 @@ ex_au = [' AU01_r', ' AU02_r', ' AU04_r', ' AU05_r', ' AU06_r', ' AU07_r', ' AU0
 
 def most_frequent(List):
     return max(set(List), key = List.count)
+def average(List):
+    return sum(List)/len(List)
 
 def get_csv_from_docker(path, name):
     command = """sudo python3 -m http.server 8000 & nc -l -p 1234 > {}.csv & sudo docker run -it algebr/openface:latest -c "wget http://172.17.0.1:8000/{}.mp4; build/bin/FeatureExtraction -aus -f {}.mp4;ls processed; ifconfig; nc -w 3 172.17.0.1 1234 < processed/{}.csv";"""
@@ -59,13 +72,15 @@ def prepare_file(path):
     for i in au:
         en.append(most_frequent(row[i]))
     for i in ex_au:
-        en.append(most_frequent(row[i]))
+        en.append(average(row[i]))
     print(en)
     return np.array(en)
 
 def predict(model, path,name):
     get_csv_from_docker(path,name)
-    data = prepare_file(name + ".csv")
-    print(data.shape)
+    print(name + ".csv")
+    data = prepare_file(str(name) + ".csv")
     pred = model.predict(np.array([data]))
     print(pred)
+
+predict(model,args["path"],"trial_lie_011")
