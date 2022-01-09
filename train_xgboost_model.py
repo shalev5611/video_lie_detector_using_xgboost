@@ -48,7 +48,7 @@ with os.scandir("au_data/processed/") as it:
             for i in au:
                 en.append(most_frequent(row[i]))
             for i in ex_au:
-                en.append(average(row[i]))
+                en.append(most_frequent(row[i]))
 
             X.append(en)
 
