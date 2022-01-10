@@ -29,8 +29,9 @@ def average(List):
 
 
 def get_csv_from_docker(path, name):
-    command = """sudo python3 -m http.server 8000 & nc -l -p 1234 > {}.csv & sudo docker run -it algebr/openface:latest -c "wget http://172.17.0.1:8000/{}.mp4; build/bin/FeatureExtraction -aus -f {}.mp4;ls processed; ifconfig; nc -w 3 172.17.0.1 1234 < processed/{}.csv";"""
-    command = command.format(name,path,name,name)
+    
+    command = """sudo python3 -m http.server 8000 & nc -l -p 5555 > {}.csv & sudo docker run -it algebr/openface:latest -c "wget http://172.17.0.1:8000/{}.mp4; build/bin/FeatureExtraction -aus -f {}.mp4; cat processed/{}.csv;ls processed; ifconfig; nc -w 3 172.17.0.1 5555 < processed/{}.csv"; sudo kill $(sudo lsof -t -i:5555) """
+    command = command.format(name,path,name,name,name)
     print(command)
     os.system(command)
 
