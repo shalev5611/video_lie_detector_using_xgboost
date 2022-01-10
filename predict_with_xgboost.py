@@ -70,7 +70,7 @@ def prepare_file(path):
             row[i].append(j)
 
     for i in au:
-        en.append(most_frequent(row[i]))
+        en.append(average(row[i]))
     for i in ex_au:
         en.append(average(row[i]))
     print(en)
