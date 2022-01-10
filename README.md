@@ -1,6 +1,9 @@
 # video_lie_detector_using_xgboost
 a video lie detector using OpenFace and xgboost
 for this project, I used the OpenFace tool on a docker container.
+the project is available on linux only.
+tested on ubuntu 18.04.6 
+
 this project contains 2 scripts:
 train_xgboost_model.py- trains the model on the action units data
 predict_with_xgboost.py generates predictions from video files
