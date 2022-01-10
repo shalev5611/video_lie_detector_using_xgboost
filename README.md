@@ -5,6 +5,6 @@ this project contains 2 scripts:
 train_xgboost_model.py- trains the model on the action units data
 predict_with_xgboost.py generates predictions from video files
 
-in this project, I use OpenFace to extract the action units, an encoding method for facial movements, and passing a list of action units seen in the video.
+in this project, I use OpenFace to extract the action units, an encoding method for facial movements, and passing a list of average of action units of each movement.
 the model currently has 62 percent accuracy, with a 50/50 label distribution in the dataset. that means the model is capable of learning the dataset,
 and could improve if there was more data available
